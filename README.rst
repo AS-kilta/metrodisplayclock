@@ -17,6 +17,27 @@ direction pins, so that it wouldn't be possible to blow up the transistors.
 .. _Raspberry Pi: http://elinux.org/RPi_Low-level_peripherals#General_Purpose_Input.2FOutput_.28GPIO.29
 .. _AS: http://as.ayy.fi/
 
+Usage
+-----
+
+Setup: run ``$your_path/clock.sh register`` as root when booting, e.g. in
+``/etc/rc.local`` or use cron's ``@reboot``. This sets up the gpio sysfs
+exports.
+
+Realtime operation: run ``$your_path/clock.sh realtime`` somewhere, as a normal
+user. I still have this in a screen session so that it could be ^Z'd
+temporarily while in development. ``clock.sh [even|odd|both]`` pulses the even,
+odd, or both pins ("even" pin is one that turns the minute hand to an even
+number using the H bridge.) ``clock.sh fast`` advances the clock as fast as
+possible (0.5 s for one turn was found to be okay experimentally).
+
+It takes 30 seconds to advance a whole hour, or six minutes for 24 hours.
+Faster operation is not really reliable or the gear mechanism would skip pulses
+sometimes.
+
+IRL
+---
+
 .. image:: face.jpg
 
 .. image:: gear.jpg
