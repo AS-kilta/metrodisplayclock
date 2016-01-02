@@ -35,6 +35,15 @@ It takes 30 seconds to advance a whole hour, or six minutes for 24 hours.
 Faster operation is not really reliable or the gear mechanism would skip pulses
 sometimes.
 
+The mechanics in the clock have no feedback, so it's not possible to read out
+the time automatically without machine vision. Therefore, you also need to run
+``clock.sh load`` at boot time, between ``register`` and ``realtime``.
+``clock.sh save`` just puts the current time to ``time.txt`` as an unix time.
+This is saved automatically during the "realtime" mode. ``clock.sh load``
+assumes that the clock displays the time found in ``time.txt``, and spins the
+clock until its time matches the current time, then exits. This feature
+probably has dozens of corner case bugs, so beware.
+
 IRL
 ---
 

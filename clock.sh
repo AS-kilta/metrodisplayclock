@@ -5,6 +5,7 @@ gpio_even=14 # turn to even minute
 gpio_odd=15 # turn to odd minute
 dir=/sys/class/gpio
 user=pi
+timetxt=$(dirname $(readlink -nf $0))/time.txt
 
 register () {
 	echo $gpio_even > $dir/export
@@ -50,6 +51,30 @@ waitmin () {
 		sleep 1
 	done
 }
+
+save () {
+	echo `date +%s` > $timetxt
+}
+
+load () {
+	[ ! -e $timetxt ] && return
+	read orig < $timetxt
+	curr=`date +%s`
+	diffm=$(((curr-orig)/60))
+	h=$((diffm/60%12))
+	m=$((diffm%60))
+	spin=$((h*60+m))
+	echo "Clock diff $h:$m, difference $spin minutes (plus adjust time)"
+	pair=$((orig/60%2))
+	while [ "$spin" -gt 0 ]; do
+		[ $pair -eq 0 ] && odd || even
+		pair=$((1-pair))
+		curr=`date +%s`
+		orig=$((orig+60))
+		spin=$((((curr-orig)/60)%(12*60)))
+	done
+}
+
 rtloop () {
 	if [ ! -w $dir/gpio$gpio_even/value ]; then
 		echo Permission denied on gpios
@@ -60,10 +85,12 @@ rtloop () {
 		t=`date +%M`
 		waitmin $t
 		even
+		save
 		date
 		t=`date +%M`
 		waitmin $t
 		odd
+		save
 		date
 	done
 }
@@ -90,7 +117,13 @@ case "$1" in
 	realtime)
 		rtloop
 		;;
+	save)
+		save
+		;;
+	load)
+		load
+		;;
 	*)
-		echo usage: $0 register/even/odd/both/fast/realtime
+		echo usage: $0 register/even/odd/both/fast/realtime/save/load
 		;;
 esac
