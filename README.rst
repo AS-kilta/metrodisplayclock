@@ -50,3 +50,10 @@ IRL
 .. image:: face.jpg
 
 .. image:: gear.jpg
+
+License
+-------
+
+`Don't care`_
+
+.. _Don't care: http://www.wtfpl.net/
