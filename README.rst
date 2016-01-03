@@ -36,13 +36,26 @@ Faster operation is not really reliable or the gear mechanism would skip pulses
 sometimes.
 
 The mechanics in the clock have no feedback, so it's not possible to read out
-the time automatically without machine vision. Therefore, you also need to run
-``clock.sh load`` at boot time, between ``register`` and ``realtime``.
+the time automatically without machine vision. Therefore, if you ever reboot,
+you also need to run ``clock.sh load`` at boot time, between ``register`` and
+``realtime``.
+
 ``clock.sh save`` just puts the current time to ``time.txt`` as an unix time.
-This is saved automatically during the "realtime" mode. ``clock.sh load``
+This is done automatically during the "realtime" mode. ``clock.sh load``
 assumes that the clock displays the time found in ``time.txt``, and spins the
 clock until its time matches the current time, then exits. This feature
 probably has dozens of corner case bugs, so beware.
+
+If the clock hands need to be rotated manually to some arbitrary time, use
+``date -d $time +%s > time.txt``. ``$time`` is whatever reads on the clock
+face, e.g., 13:37.
+
+The clock box has two clock faces facing in opposite directions but just one
+input; if they go out of sync for some reason, one must be rotated manually to
+match the other, unless you re-wire them.
+
+TODO: investigate why the other face lags sometimes. Maybe it needs lubrication
+or longer pulses.
 
 IRL
 ---
