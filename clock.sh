@@ -59,12 +59,13 @@ save () {
 load () {
 	[ ! -e $timetxt ] && return
 	read orig < $timetxt
+	str=`date -d @$orig`
 	curr=`date +%s`
 	diffm=$(((curr-orig)/60))
 	h=$((diffm/60%12))
 	m=$((diffm%60))
 	spin=$((h*60+m))
-	echo "Clock diff $h:$m, difference $spin minutes (plus adjust time)"
+	echo "saved clock: $str, diff $h:$m, total $spin minutes. adjusting"
 	pair=$((orig/60%2))
 	while [ "$spin" -gt 0 ]; do
 		[ $pair -eq 0 ] && odd || even
@@ -73,6 +74,8 @@ load () {
 		orig=$((orig+60))
 		spin=$((((curr-orig)/60)%(12*60)))
 	done
+	echo -n "loaded, date is: "
+	date
 }
 
 rtloop () {
