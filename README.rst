@@ -57,6 +57,22 @@ match the other, unless you re-wire them.
 TODO: investigate why the other face lags sometimes. Maybe it needs lubrication
 or longer pulses.
 
+Our RPi setup
+-------------
+
+this in /etc/rc.local:
+
+::
+
+  ~pi/metrodisplayclock/clock.sh register
+  su -c "screen -d -m -S main -c ~pi/.screenrc-bootup" - pi
+
+and ~pi/.screenrc-bootup has this, among other stuff that we need:
+
+::
+
+  screen -t clock 0 metrodisplayclock/boot.sh
+
 IRL
 ---
 
