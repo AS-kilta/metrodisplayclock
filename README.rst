@@ -60,6 +60,12 @@ or longer pulses.
 IRL
 ---
 
+The photo below is actually rotated; the whole display stands vertically. For
+this "mode", the hour hand has been adjusted a bit so that it aligns properly
+when the minute hand points upwards (= left in the photo), which isn't the
+original zero-minute direction. The hour hand turns almost freely on its shaft
+and doesn't break but seems to be designed for this.
+
 .. image:: face.jpg
 
 .. image:: gear.jpg
