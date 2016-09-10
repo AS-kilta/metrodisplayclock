@@ -3,8 +3,9 @@ metro station display clock driver
 
 The analog clock on those old red Finnish metro station displays is driven by
 12 V pulses with alternating polarity. One pulse turns the minute hand one step
-forward, and the hour hand is automatic. The required pulse duration is about
-0.5 seconds. Current draw of both the two coils is approximately 50 mA at 12 V.
+forward, and the hour hand is automatic. The required pulse duration is
+typically 0.5 seconds, but I'm using one second here because half is not always
+enough. Current draw of both the two coils is approximately 50 mA at 12 V.
 
 It's not possible to go backwards electrically, but there is a gear inside that
 can be turned manually. It's also okay to just grab the minute hand.
@@ -29,11 +30,11 @@ user. I still have this in a screen session so that it could be ^Z'd
 temporarily while in development. ``clock.sh [even|odd|both]`` pulses the even,
 odd, or both pins ("even" pin is one that turns the minute hand to an even
 number using the H bridge.) ``clock.sh fast`` advances the clock as fast as
-possible (0.5 s for one turn was found to be okay experimentally).
+possible (one second for one turn was found to be okay experimentally).
 
-It takes 30 seconds to advance a whole hour, or six minutes for 24 hours.
-Faster operation is not really reliable or the gear mechanism would skip pulses
-sometimes.
+It takes 30 seconds to advance a whole hour if you change the pin toggling
+speed to 0.5 s, or six minutes for 24 hours.  Faster operation is not really
+reliable or the gear mechanism would skip pulses sometimes.
 
 The mechanics in the clock have no feedback, so it's not possible to read out
 the time automatically without machine vision. Therefore, if you ever reboot,
@@ -54,8 +55,8 @@ The clock box has two clock faces facing in opposite directions but just one
 input; if they go out of sync for some reason, one must be rotated manually to
 match the other, unless you re-wire them.
 
-TODO: investigate why the other face lags sometimes. Maybe it needs lubrication
-or longer pulses.
+TODO: investigate why the other face lags sometimes and if one second is
+enough. Maybe it needs lubrication or longer pulses.
 
 Our RPi setup
 -------------

@@ -17,7 +17,7 @@ register () {
 
 toggle () {
 	echo 1 > $dir/gpio$1/value
-	sleep 0.45
+	sleep 0.95
 	echo 0 > $dir/gpio$1/value
 	sleep 0.05
 }
