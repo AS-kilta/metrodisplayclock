@@ -3,6 +3,6 @@
 
 # wait enough to get current time from ntp. rpi doesn't have an rtc and just
 # loads the shutdown time at bootup
-sleep 60
+sleep 120
 $(dirname $(readlink -nf $0))/clock.sh load
 $(dirname $(readlink -nf $0))/clock.sh realtime
