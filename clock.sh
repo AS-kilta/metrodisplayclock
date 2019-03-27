@@ -31,9 +31,14 @@ odd () {
 }
 
 fastloop () {
+	i=0
 	while true; do
 		even
 		odd
+		i=$((i+2))
+		h=$((i/60))
+		m=$((i%60))
+		echo "$i minutes = $h:$m"
 	done
 }
 
